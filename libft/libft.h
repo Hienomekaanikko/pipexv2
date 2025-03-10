@@ -6,7 +6,7 @@
 /*   By: msuokas <msuokas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 11:27:06 by msuokas           #+#    #+#             */
-/*   Updated: 2025/03/07 08:38:29 by msuokas          ###   ########.fr       */
+/*   Updated: 2025/03/10 16:10:42 by msuokas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,8 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *str);
 long long	ft_atol(const char *s);
 int			ft_isspace(int c);
+char		*ft_strndup(const char *s, size_t n);
+void		ft_free_substrings(char **arr_str);
+
 
 #endif

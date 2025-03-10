@@ -30,10 +30,12 @@ SRC = ft_calloc.c \
 			ft_strjoin.c \
 			ft_strtrim.c \
 			ft_putendl_fd.c \
-			ft_putstr_fd.c \
 			ft_split.c \
 			ft_putstr.c \
 			ft_free_split.c \
+			ft_putstr_fd.c \
+			ft_strndup.c \
+			ft_free_substrings.c
 
 OBJS = $(SRC:.c=.o)
 

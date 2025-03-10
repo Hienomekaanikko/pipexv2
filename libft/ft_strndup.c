@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msuokas <msuokas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 12:02:27 by msuokas           #+#    #+#             */
-/*   Updated: 2025/03/10 15:53:16 by msuokas          ###   ########.fr       */
+/*   Created: 2025/03/10 12:36:51 by msuokas           #+#    #+#             */
+/*   Updated: 2025/03/10 12:37:00 by msuokas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	init_parse_data(t_parse *data)
+char	*ft_strndup(const char *s, size_t n)
 {
-	data->count = 0;
-	data->in_quote = 0;
-	data->quote_char = '\0';
-}
+	size_t	len;
+	char	*new_str;
 
-void	init_data(t_data *data)
-{
-	data->paths = NULL;
-	data->path = NULL;
-	data->cmd = NULL;
-	data->in = -1;
-	data->out = -1;
-	data->pipe[0] = -1;
-	data->pipe[1] = -1;
-	data->error_code = 0;
-	data->out_no_wr = 0;
-	data->in_no_r = 0;
+	len = ft_strlen(s);
+	new_str = (char *)ft_calloc(len + 1, sizeof(char));
+	if (new_str)
+	{
+		ft_memcpy(new_str, s, n);
+	}
+	return (new_str);
 }

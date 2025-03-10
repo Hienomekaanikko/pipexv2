@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_free_substrings.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msuokas <msuokas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 12:02:27 by msuokas           #+#    #+#             */
-/*   Updated: 2025/03/10 15:53:16 by msuokas          ###   ########.fr       */
+/*   Created: 2025/03/10 16:10:11 by msuokas           #+#    #+#             */
+/*   Updated: 2025/03/10 16:10:21 by msuokas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "libft.h"
 
-void	init_parse_data(t_parse *data)
+void	ft_free_substrings(char **arr_str)
 {
-	data->count = 0;
-	data->in_quote = 0;
-	data->quote_char = '\0';
-}
+	int	i;
 
-void	init_data(t_data *data)
-{
-	data->paths = NULL;
-	data->path = NULL;
-	data->cmd = NULL;
-	data->in = -1;
-	data->out = -1;
-	data->pipe[0] = -1;
-	data->pipe[1] = -1;
-	data->error_code = 0;
-	data->out_no_wr = 0;
-	data->in_no_r = 0;
+	i = 0;
+	while (arr_str[i] != NULL)
+	{
+		free(arr_str[i]);
+		arr_str[i] = NULL;
+		i++;
+	}
+	if (arr_str != NULL)
+	{
+		free(arr_str);
+		arr_str = NULL;
+	}
 }

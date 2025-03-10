@@ -6,11 +6,13 @@
 /*   By: msuokas <msuokas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 09:50:50 by msuokas           #+#    #+#             */
-/*   Updated: 2025/03/07 12:32:54 by msuokas          ###   ########.fr       */
+/*   Updated: 2025/03/10 18:13:44 by msuokas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+
 
 static void	in_quote(const char *str, t_parse *data)
 {

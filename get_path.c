@@ -6,7 +6,7 @@
 /*   By: msuokas <msuokas@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 12:25:43 by msuokas           #+#    #+#             */
-/*   Updated: 2025/03/07 18:03:20 by msuokas          ###   ########.fr       */
+/*   Updated: 2025/03/10 17:57:42 by msuokas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void	add_cmd_to_path(t_data *data, char *cmd, int i)
 
 	path = ft_strjoin(data->paths[i], "/");
 	if (!path)
-		ft_sys_error(data, CMD);
+		ft_sys_error(data, "Memory allocation failed");
 	data->path = ft_strjoin(path, cmd);
 	free(path);
 	path = NULL;
 	if (!data->path)
-		ft_sys_error(data, CMD);
+		ft_sys_error(data, "Memory allocation failed");
 }
 
 static void	split_directories(t_data *data, char **envp)
@@ -32,25 +32,23 @@ static void	split_directories(t_data *data, char **envp)
 
 	i = 0;
 	if (!envp[0])
-		ft_error(NOPATH, NULL);
+		ft_error_msg(data, NULL, "Path not found", 127);
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!envp[i])
-	{
-		data->error_status = NOPATH;
-		data->path = "";
-		return ;
-	}
+		ft_error_msg(data, NULL, "Path not found", 127);
 	data->paths = ft_split(envp[i] + 5, ':');
 	if (!data->paths)
-		ft_sys_error(data, PATH);
+		ft_sys_error(data, "Memory allocation failed");
 }
 
 static void	add_absolute_path(t_data *data, char *cmd)
 {
 	data->path = ft_strdup(cmd);
 	if (!data->path)
-		ft_sys_error(data, PATH);
+		ft_sys_error(data, "Memory allocation failed");
+	if (access(data->path, F_OK) != 0)
+		ft_error_msg(data, data->path, "No such file or directory", 127);
 }
 
 void	get_cmd_path(t_data *data, char *cmd, char **envp)
