@@ -20,7 +20,13 @@ void	split_directories(t_data *data, char **envp)
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!envp[i])
-		ft_error_msg(data, NULL, "Path not found", 127);
+	{
+		ft_error_msg(NULL, "Path not found");
+		if (data->i == 1 && data->in_error == 0)
+			data->in_error = 1;
+		if (data->i == 2 && data->in_error == 0)
+			data->out_error = 127;
+	}
 	data->paths = ft_split(envp[i] + 5, ':');
 	if (!data->paths)
 		ft_sys_error(data, "Memory allocation failed");
@@ -40,10 +46,9 @@ void	init_data(t_data *data)
 	data->cmd = NULL;
 	data->in = -1;
 	data->out = -1;
+	data->in_error = 0;
+	data->out_error = 0;
 	data->pipe[0] = -1;
 	data->pipe[1] = -1;
-	data->error_code = 0;
-	data->out_no_wr = 0;
-	data->in_no_r = 0;
 	data->i = 1;
 }

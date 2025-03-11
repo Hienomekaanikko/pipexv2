@@ -35,21 +35,14 @@ void	clear_memory(t_data *data)
 		ft_free_split(data->cmd);
 }
 
-void	ft_error_msg(t_data *data, char *arg, char *msg, int code)
+void	ft_error_msg(char *arg, char *msg)
 {
-	data->error_code = code;
 	if (arg)
 	{
 		ft_putstr_fd(arg, 2);
 		ft_putstr_fd(": ", 2);
 	}
 	ft_putendl_fd(msg, 2);
-	if (data->error_code != 0 && data->out_no_wr == 0 && data->i == 2)
-	{
-		clear_memory(data);
-		printf("%d\n", code);
-		exit(code);
-	}
 }
 
 void	ft_sys_error(t_data *data, char *msg)

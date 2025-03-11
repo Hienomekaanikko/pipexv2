@@ -20,7 +20,6 @@ static int	processor(pid_t pid2)
 	pid_t	pid;
 
 	processes = 2;
-	exit_code = 0;
 	while (processes > 0)
 	{
 		pid = wait(&status);
@@ -28,28 +27,33 @@ static int	processor(pid_t pid2)
 			exit_code = WEXITSTATUS(status);
 		processes--;
 	}
-	printf("%d\n", exit_code);
 	return (exit_code);
 }
 
 static void	forker(t_data *data, char *cmd_path1, char *cmd_path2, char **envp)
 {
-	data->pid1 = fork();
-	if (data->pid1 == 0)
+	if (data->in_error == 0)
 	{
-		data->path = cmd_path1;
-		child_one(data, envp);
+		data->pid1 = fork();
+		if (data->pid1 == 0)
+		{
+			data->path = cmd_path1;
+			child_one(data, envp);
+		}
+		else if (data->pid1 == -1)
+			ft_sys_error(data, "FORK");
 	}
-	else if (data->pid1 == -1)
-		ft_sys_error(data, "FORK");
-	data->pid2 = fork();
-	if (data->pid2 == 0)
+	if (data->out_error == 0)
 	{
-		data->path = cmd_path2;
-		child_two(data, envp);
+		data->pid2 = fork();
+		if (data->pid2 == 0)
+		{
+			data->path = cmd_path2;
+			child_two(data, envp);
+		}
+		else if (data->pid2 == -1)
+			ft_sys_error(data, "FORK");
 	}
-	else if (data->pid2 == -1)
-		ft_sys_error(data, "FORK");
 }
 
 int main(int argc, char **argv, char **envp)
@@ -64,5 +68,7 @@ int main(int argc, char **argv, char **envp)
 	cmd_path2 = handle_cmd(&data, argv[3], envp);
 	forker(&data, cmd_path1, cmd_path2, envp);
 	close_fds(&data);
+	if (data.out_error != 0)
+		return(data.out_error);
 	return (processor(data.pid2));
 }

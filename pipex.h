@@ -31,9 +31,8 @@ typedef struct s_data
 	int		pipe[2];
 	int		in;
 	int		out;
-	int		error_code;
-	int		out_no_wr;
-	int		in_no_r;
+	int		in_error;
+	int		out_error;
 	int		i;
 }	t_data;
 
@@ -53,7 +52,7 @@ char	**parse_cmd(const char *str);
 void	init_parse_data(t_parse *data);
 void	init_data(t_data *data);
 int		is_relative_path(t_data *data, char *cmd);
-void	ft_error_msg(t_data *data, char *arg, char *msg, int code);
+void	ft_error_msg(char *arg, char *msg);
 void	clear_memory(t_data *data);
 void	ft_sys_error(t_data *data, char *msg);
 int		is_space(char *cmd);

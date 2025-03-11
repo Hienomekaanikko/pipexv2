@@ -14,11 +14,8 @@
 
 void	child_one(t_data *data, char **envp)
 {
-	if (data->in_no_r == 0)
-	{
-		dup2(data->in, 0);
-		dup2(data->pipe[1], 1);
-	}
+	dup2(data->in, 0);
+	dup2(data->pipe[1], 1);
 	close_fds(data);
 	if (execve(data->path, data->cmd, envp) == -1)
 		clear_memory(data);

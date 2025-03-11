@@ -44,9 +44,14 @@ static void	add_absolute_path(t_data *data, char *cmd)
 	data->path = ft_strdup(cmd);
 	if (!data->path)
 		ft_sys_error(data, "Memory allocation failed");
-
 	if (access(data->path, F_OK) != 0)
-		ft_error_msg(data, data->path, "No such file or directory", 127);
+	{
+		ft_error_msg(data->path, "No such file or directory");
+		if (data->i == 2 && data->in_error == 0)
+			data->out_error = 127;
+		if (data->i == 1 && data->in_error == 0)
+			data->in_error = 1;
+	}
 }
 
 void	get_cmd_path(t_data *data, char *cmd, char **envp)
